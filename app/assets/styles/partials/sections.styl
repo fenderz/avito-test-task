@@ -1,0 +1,80 @@
+.sections
+    font-size: 0
+
+    &__item
+        padding: 10px
+        background: $color_orange
+        box-sizing: border-box
+        display: inline-block
+        vertical-align: top
+        border-radius: 5px
+        font-weight: 500
+        font-size: 14px
+        margin: 0 2% 2% 0
+        width: 32%
+        color: $color_dark
+
+        &:nth-child(3n+3)
+            margin-right: 0
+
+    &__title
+        background: $color_white
+        padding: 10px
+        border-radius: 3px
+        color: $color_dark
+        cursor: pointer
+        margin-bottom: 10px
+        position: relative
+        font: 500 14px/1.1 $fontRoboto
+        change-props: margin
+
+        &:before
+            content: '>'
+            display: block
+            width: 20px
+            height: 20px
+            border-radius: 50%
+            position: absolute
+            right: 10px
+            top: 50%
+            margin-top: -10px
+            background: $color_blue
+            color: $color_white
+            text-align: center
+            line-height: 20px
+            font-weight: 300
+            transform: rotate(90deg)
+            change-props: transform
+
+        &:after
+            content: attr(data-topics-counter)
+            display: inline-block
+            vertical-align: middle
+            height: 16px
+            padding: 0 4px
+            border-radius: 2px
+            background: $color_gray
+            color: $color_white
+            font: 300 13px/16px $fontRoboto
+            text-align: center
+            margin-left: 5px
+
+    &__title_open
+        margin-bottom: 0
+
+        &:before
+            transform: rotate(-90deg)
+
+        & + .topics-list
+                visibility: hidden
+                opacity: 0
+                max-height: 0
+
+/* media query */
+@media $media_mobile
+
+    .sections
+
+        &__item
+            width: 100%
+            margin-right: 0
