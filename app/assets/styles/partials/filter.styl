@@ -8,13 +8,20 @@
         padding: 10px;
         box-sizing: border-box
         outline: none
+        change-props: min-width
 
 /* media query */
+@media $media_tablet
+
+    .filter
+        &__input
+            min-width: 66%
+
+
 @media $media_mobile
 
     .filter
         margin-bottom: 20px
 
         &__input
-            min-width: auto
-            width: 100%
+            min-width: 100%

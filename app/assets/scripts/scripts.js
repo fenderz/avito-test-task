@@ -128,7 +128,7 @@ function main() {
     function reload() {
         setTimeout(function () {
             load();
-        }, 50000);
+        }, 5000);
     }
 }
 
