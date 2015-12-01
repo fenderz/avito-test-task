@@ -1,6 +1,12 @@
 function filterData(data, str) {
     var filteredArray = {};
 
+    str = str.trim();
+
+    if (!str) {
+        return data
+    }
+
     filteredArray.topics = data.topics.filter(function (topic) {
         return topic.title.match(new RegExp('\\b' + str, 'gi'));
     });
