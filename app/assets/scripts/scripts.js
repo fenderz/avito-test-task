@@ -14,12 +14,31 @@ function filterData(data, str) {
     return filteredArray;
 }
 
+
+function sortBy (arr, key) {
+
+    arr.sort(function(a, b) {
+
+        if (a[key] > b[key]) {
+            return 1
+        }
+
+        if (a[key] < b[key]) {
+            return -1
+        }
+
+        return 0
+    });
+
+    return arr
+}
+
 function buildSections(container, data) {
-    var sections = data.sections;
-    var topics = data.topics;
+    var sections = sortBy(data.sections, 'title');
+    var topics = sortBy(data.topics, 'title');
 
     buildSections.disposed.forEach(function(fn){
-       fn();
+        fn();
     });
 
     container.innerHTML = '';
@@ -89,9 +108,9 @@ function loadData(callback) {
     xhr.send();
 
     xhr.onreadystatechange = function () {
-        if (xhr.readyState != 4) return;
+        if (xhr.readyState !== 4) return;
 
-        if (xhr.status != 200) {
+        if (xhr.status !== 200) {
             console.log(xhr.status + ': ' + xhr.statusText);
         } else {
             data = JSON.parse(xhr.responseText);
