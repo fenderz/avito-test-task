@@ -41,6 +41,8 @@ function buildSections(container, data) {
         fn();
     });
 
+    buildSections.disposed = [];
+
     container.innerHTML = '';
 
     sections.forEach(function (section) {
