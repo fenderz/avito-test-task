@@ -1,5 +1,5 @@
 function filterData(data, str) {
-    var filteredArray = {};
+    var filteredData = {};
 
     str = str.trim();
 
@@ -7,17 +7,17 @@ function filterData(data, str) {
         return data
     }
 
-    filteredArray.topics = data.topics.filter(function (topic) {
+    filteredData.topics = data.topics.filter(function (topic) {
         return topic.title.match(new RegExp('\\b' + str, 'gi'));
     });
 
-    filteredArray.sections = data.sections.filter(function (section) {
-        return filteredArray.topics.some(function (topic) {
+    filteredData.sections = data.sections.filter(function (section) {
+        return filteredData.topics.some(function (topic) {
             return topic.section === section.id;
         });
     });
 
-    return filteredArray;
+    return filteredData;
 }
 
 
