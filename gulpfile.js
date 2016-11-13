@@ -27,7 +27,7 @@ gulp.task('scripts', function() {
     return gulp
         .src(scriptsPath)
         .pipe(concat('bundle.js'))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('./public/scripts'));
 });
