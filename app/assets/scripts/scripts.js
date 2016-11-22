@@ -1,8 +1,8 @@
 var DEFAULT_CLASS = 'list__item';
 var FLOODED_CLASS = 'list__item_flood';
-var arr = [5, 2, 5, 2, 4, 6, 1, 2, 4, 5, 7, 8, 1, 5, 2, 4, 6, 1, 2, 4, 5, 9, 1, 5, 2, 4, 6, 1, 2, 4, 5];
+var arr = [1, 2, 5, 2, 4, 6, 1, 2, 4, 5, 7, 8, 1, 5, 2, 4, 6, 1, 2, 4, 5, 9, 1, 5, 2, 4, 6, 1, 2, 4, 5];
 var conteinerNode = document.querySelector('.js-list');
-
+var volumeNode = document.querySelector('.js-volume');
 var className = DEFAULT_CLASS;
 
 // Временное хранилище для затопленных столбцов
@@ -10,46 +10,46 @@ var buffer = [];
 // Индексы затопленных столбцов
 var drowned = [];
 // Индекс максимального столбца в buffer
-var m = 0;
+var maxIndex = 0;
 // Индекс левой границы затопленных столбцов
-var i = 0;
+var indexLeft = 0;
 // Индекс правой границы затопленных столбцов
-var j = 0;
+var indexRight = 0;
 var vol = 0;
-var l = arr.length;
+var arrLength = arr.length;
 
-while (i < l) {
-    j = i + 1;
-    m = 0;
+while (indexLeft < arrLength) {
+    indexRight = indexLeft + 1;
+    maxIndex = 0;
 
     // Ищем столбец с меньшим объемом
     // либо упираемся в конец
-    while (arr[i] > arr[j] && j < l) {
-        buffer.push(j);
+    while (arr[indexLeft] > arr[indexRight] && indexRight < arrLength) {
+        buffer.push(indexRight);
         // Запоминаем индекс максимального элемента
         // для случая если добрались до конца массива
         // Индекс массива buffer
-        if (arr[buffer[m]] < arr[j]) {
-            m = j - i - 1;
+        if (arr[buffer[maxIndex]] < arr[indexRight]) {
+            maxIndex = indexRight - indexLeft - 1;
         }
-        j++;
+        indexRight++;
     }
 
     // Если добрались до конца, то
     // отрезаем буфер до максимального элемента
-    if (l == j) {
-        j = buffer[m];
-        buffer = buffer.slice(0, m);
+    if (arrLength === indexRight) {
+        indexRight = buffer[maxIndex];
+        buffer = buffer.slice(0, maxIndex);
     }
 
-    vol += calcVolume(arr, buffer, arr[j] > arr[i] ? arr[j] : arr[i]);
+    vol += calcVolume(arr, buffer, Math.min(arr[indexLeft], arr[indexRight]));
 
     drowned = drowned.concat(buffer);
     buffer = [];
 
     // Продолжаем цикл с правой границы
     // затопленных столбцов
-    i = j;
+    indexLeft = indexRight;
 }
 
 function calcVolume(items, indexes, max) {
@@ -79,4 +79,4 @@ arr.forEach(function (item, index) {
     conteinerNode.appendChild(createItem('li', className, item));
 });
 
-document.querySelector('.title').textContent = vol;
+volumeNode.textContent = 'Volume: ' + vol;
