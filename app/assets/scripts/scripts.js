@@ -1,7 +1,7 @@
 var DEFAULT_CLASS = 'list__item';
 var FLOODED_CLASS = 'list__item_flood';
 var arr = [1, 2, 5, 2, 4, 6, 1, 2, 4, 5, 7, 8, 1, 5, 2, 4, 6, 1, 2, 4, 5, 9, 1, 5, 2, 4, 6, 1, 2, 4, 5];
-var conteinerNode = document.querySelector('.js-list');
+var containerNode = document.querySelector('.js-list');
 var volumeNode = document.querySelector('.js-volume');
 var className = DEFAULT_CLASS;
 
@@ -76,7 +76,7 @@ arr.forEach(function (item, index) {
     } else {
         className = DEFAULT_CLASS;
     }
-    conteinerNode.appendChild(createItem('li', className, item));
+    containerNode.appendChild(createItem('li', className, item));
 });
 
 volumeNode.textContent = 'Volume: ' + vol;
