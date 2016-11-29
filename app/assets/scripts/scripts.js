@@ -1,8 +1,11 @@
 var DEFAULT_CLASS = 'list__item';
 var FLOODED_CLASS = 'list__item_flood';
-var arr = [1, 2, 5, 2, 4, 6, 1, 2, 4, 5, 7, 8, 1, 5, 2, 4, 6, 1, 2, 4, 5, 9, 1, 5, 2, 4, 6, 1, 2, 4, 5];
+//var arr = [1, 2, 5, 2, 4, 6, 1, 2, 4, 5, 7, 8, 1, 5, 2, 4, 6, 1, 2, 4, 5, 9, 1, 5, 2, 4, 6, 1, 2, 4, 5];
 var containerNode = document.querySelector('.js-list');
 var volumeNode = document.querySelector('.js-volume');
+var inputNode = document.querySelector('.js-input');
+var buildBtnNode = document.querySelector('.js-build-btn');
+var floodBtnNode = document.querySelector('.js-flood-btn');
 var className = DEFAULT_CLASS;
 
 // Временное хранилище для затопленных столбцов
@@ -16,18 +19,27 @@ var indexLeft = 0;
 // Индекс правой границы затопленных столбцов
 var indexRight = 0;
 var vol = 0;
-var arrLength = arr.length;
+//var arr.length = arr.length;
 var diff = {};
-function main() {
 
 
-    while (indexLeft < arrLength) {
+buildBtnNode.addEventListener('click', function(){
+    //Array.from(inputNode.value);
+    console.log(Array.from(inputNode.value));
+    main(Array.from(inputNode.value))
+});
+
+
+
+function main(arr) {
+
+    while (indexLeft < arr.length) {
         indexRight = indexLeft + 1;
         maxIndex = 0;
 
         // Ищем столбец с меньшим объемом
         // либо упираемся в конец
-        while (arr[indexLeft] > arr[indexRight] && indexRight < arrLength) {
+        while (arr[indexLeft] > arr[indexRight] && indexRight < arr.length) {
             buffer.push(indexRight);
             // Запоминаем индекс максимального элемента
             // для случая если добрались до конца массива
@@ -40,7 +52,7 @@ function main() {
 
         // Если добрались до конца, то
         // отрезаем буфер до максимального элемента
-        if (arrLength === indexRight) {
+        if (arr.length === indexRight) {
             indexRight = buffer[maxIndex];
             buffer = buffer.slice(0, maxIndex);
         }
@@ -100,8 +112,7 @@ function createItem(tag, name, text, height) {
 }
 var drownedHeight;
 
-
 containerNode.addEventListener('click', function () {
     document.body.classList.remove('hide-drowned');
 });
-main();
+//main();
