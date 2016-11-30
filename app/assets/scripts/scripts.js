@@ -7,39 +7,42 @@ var inputNode = document.querySelector('.js-input');
 var buildBtnNode = document.querySelector('.js-build-btn');
 var floodBtnNode = document.querySelector('.js-flood-btn');
 var className = DEFAULT_CLASS;
-
-// Временное хранилище для затопленных столбцов
-var buffer = [];
-// Индексы затопленных столбцов
-var drowned = [];
-// Индекс максимального столбца в buffer
-var maxIndex = 0;
-// Индекс левой границы затопленных столбцов
-var indexLeft = 0;
-// Индекс правой границы затопленных столбцов
-var indexRight = 0;
-var vol = 0;
-//var arr.length = arr.length;
 var diff = {};
-
+var drownedHeight;
 
 buildBtnNode.addEventListener('click', function(){
-    //Array.from(inputNode.value);
-    console.log(Array.from(inputNode.value));
+    document.body.classList.add('hide-drowned');
     main(Array.from(inputNode.value))
 });
 
-
+floodBtnNode.addEventListener('click', function () {
+    document.body.classList.remove('hide-drowned');
+});
 
 function main(arr) {
+    var arrLength = arr.length;
+    // Временное хранилище для затопленных столбцов
+    var buffer = [];
+    // Индексы затопленных столбцов
+    var drowned = [];
+    // Индекс максимального столбца в buffer
+    var maxIndex = 0;
+    // Индекс левой границы затопленных столбцов
+    var indexLeft = 0;
+    // Индекс правой границы затопленных столбцов
+    var indexRight = 0;
+    var vol = 0;
 
-    while (indexLeft < arr.length) {
+
+    containerNode.innerHTML = '';
+
+    while (indexLeft < arrLength) {
         indexRight = indexLeft + 1;
         maxIndex = 0;
 
         // Ищем столбец с меньшим объемом
         // либо упираемся в конец
-        while (arr[indexLeft] > arr[indexRight] && indexRight < arr.length) {
+        while (arr[indexLeft] > arr[indexRight] && indexRight < arrLength) {
             buffer.push(indexRight);
             // Запоминаем индекс максимального элемента
             // для случая если добрались до конца массива
@@ -52,7 +55,7 @@ function main(arr) {
 
         // Если добрались до конца, то
         // отрезаем буфер до максимального элемента
-        if (arr.length === indexRight) {
+        if (arrLength === indexRight) {
             indexRight = buffer[maxIndex];
             buffer = buffer.slice(0, maxIndex);
         }
@@ -80,6 +83,7 @@ function main(arr) {
 
     volumeNode.textContent = 'Volume: ' + vol;
 }
+
 function calcVolume(items, indexes, max) {
     var vol = 0;
 
@@ -98,21 +102,17 @@ function buildDiff(items, indexes, max) {
 
     return diff;
 }
-//console.log(diff);
+
 function createItem(tag, name, text, height) {
     var element = document.createElement(tag);
     var span = document.createElement('span');
+
     span.style.height = height * 25 + 'px';
     span.className = 'list__item-submerged';
     element.className = name;
     element.textContent = text;
     element.style.height = text * 25 + 'px';
     element.appendChild(span);
+
     return element
 }
-var drownedHeight;
-
-containerNode.addEventListener('click', function () {
-    document.body.classList.remove('hide-drowned');
-});
-//main();

@@ -1,4 +1,4 @@
-.filter
+.form
     margin-bottom: 20px
 
     &__input
@@ -8,19 +8,33 @@
         padding: 10px;
         box-sizing: border-box
         outline: none
-        change-props: min-width
+
+    &__button
+        border-radius: 5px
+        background $color_mint
+        padding: 0 10px;
+        height: 36px
+        box-sizing: border-box
+        outline: none
+        border: 1px solid transparent
+        color: $color_white
+        margin: 0 0 0 10px
+        text-transform: uppercase
+
+    &__button_pink
+        background: $color_pink
 
 /* media query */
 @media $media_tablet
 
-    .filter
+    .form
         &__input
             min-width: 66%
 
 
 @media $media_mobile
 
-    .filter
+    .form
         margin-bottom: 20px
 
         &__input
