@@ -2,6 +2,7 @@
 .animateBottom
 .animateLeft
 .animateRight
+.animateHeight
     animation-duration: 0.9s;
     animation-fill-mode: both;
 
@@ -16,6 +17,9 @@
 
 .animateRight
     animation-name: animateRight
+
+.animateHeight
+    animation-name: animateHeight
 
 
 @keyframes animateTop {
@@ -67,5 +71,16 @@
     100% {
         opacity: 1
         transform: translateX(0)
+    }
+}
+
+@keyframes animateHeight {
+
+0% {
+        max-height: 20px
+    }
+
+100% {
+        max-height: 300px
     }
 }
