@@ -1,11 +1,13 @@
 var DEFAULT_CLASS = 'list__item';
 var FLOODED_CLASS = 'list__item_flood';
+var FLOODING_TIME = 7000;
 //var arr = [1, 2, 5, 2, 4, 6, 1, 2, 4, 5, 7, 8, 1, 5, 2, 4, 6, 1, 2, 4, 5, 9, 1, 5, 2, 4, 6, 1, 2, 4, 5];
 var containerNode = document.querySelector('.js-list');
 var volumeNode = document.querySelector('.js-volume');
 var inputNode = document.querySelector('.js-input');
 var buildBtnNode = document.querySelector('.js-build-btn');
 var floodBtnNode = document.querySelector('.js-flood-btn');
+var rainNode = document.querySelector('.js-rain');
 var className = DEFAULT_CLASS;
 var diff = {};
 var drownedHeight;
@@ -17,6 +19,12 @@ buildBtnNode.addEventListener('click', function(){
 
 floodBtnNode.addEventListener('click', function () {
     document.body.classList.remove('hide-drowned');
+
+    rainNode.style.display = 'block';
+
+    setTimeout(function () {
+        rainNode.style.display = 'none';
+    }, FLOODING_TIME)
 });
 
 function main(arr) {
@@ -32,7 +40,6 @@ function main(arr) {
     // Индекс правой границы затопленных столбцов
     var indexRight = 0;
     var vol = 0;
-
 
     containerNode.innerHTML = '';
 
@@ -116,3 +123,30 @@ function createItem(tag, name, text, height) {
 
     return element
 }
+
+// number of drops created.
+var nbDrop = 858;
+
+// function to generate a random number range.
+function randRange( minNum, maxNum) {
+    return (Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum);
+}
+
+// function to generate drops
+function createRain() {
+
+    for( i = 1; i < nbDrop; i++) {
+        var dropLeft = randRange(0,1600);
+        var dropTop = randRange(-1000,1400);
+        var div = document.createElement('div');
+        div.className = 'drop';
+        div.id = 'drop' + i;
+
+        rainNode.appendChild(div);
+
+        div.style.left = dropLeft + 'px';
+        div.style.top = dropTop + 'px';
+    }
+}
+
+createRain();

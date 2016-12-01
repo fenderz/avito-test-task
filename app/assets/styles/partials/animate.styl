@@ -21,6 +21,21 @@
 .animateHeight
     animation-name: animateHeight
 
+.animateFade
+    animation-name: animateFade
+    animation-duration: 2s
+    animation-fill-mode: both
+
+@keyframes animateFade {
+
+    0% {
+        opacity: 0
+    }
+
+    100% {
+        opacity: 1
+    }
+}
 
 @keyframes animateTop {
 
@@ -76,11 +91,25 @@
 
 @keyframes animateHeight {
 
-0% {
-        max-height: 20px
+    0% {
+            max-height: 20px
+        }
+
+    100% {
+            max-height: 300px
+        }
+}
+
+@keyframes fall {
+
+    0% {
+        //transform: translateY(0)
+        margin-top: 0
     }
 
-100% {
-        max-height: 300px
+    100% {
+        margin-top: 900px
+        //transform: translateY(900px)
     }
 }
+
